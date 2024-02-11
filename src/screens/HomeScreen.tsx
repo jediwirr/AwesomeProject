@@ -1,8 +1,8 @@
+import {PostsList} from '@/widgets/posts-list';
 import React from 'react';
-import {Text} from 'react-native';
 
 const HomeScreen = () => {
-  return <Text>Home</Text>;
+  return <PostsList />;
 };
 
 export default HomeScreen;

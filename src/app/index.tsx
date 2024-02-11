@@ -6,10 +6,10 @@ import BootSplash from 'react-native-bootsplash';
 import {config} from '@tamagui/config/v2-native';
 import {ToastProvider} from '@tamagui/toast';
 import StackNavigator from './providers/navigation/StackNavigator';
-import {useAuthStore} from '@/features/auth';
 import {CurrentToast, SafeToastViewport} from '@/shared/ui/toast';
 import AuthScreen from '@/screens/AuthScreen';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import {useUserStore} from '@/entities/user/store';
 
 const tamaguiConfig = createTamagui(config);
 
@@ -20,7 +20,7 @@ declare module 'tamagui' {
 }
 
 export default function () {
-  const {loggedIn} = useAuthStore(state => state.user);
+  const {user} = useUserStore();
 
   useEffect(() => {
     (async () => {
@@ -36,7 +36,7 @@ export default function () {
         <QueryClientProvider client={queryClient}>
           <ToastProvider burntOptions={{from: 'bottom'}}>
             <PaperProvider>
-              {!loggedIn ? <AuthScreen /> : <StackNavigator />}
+              {!user.loggedIn ? <AuthScreen /> : <StackNavigator />}
               <CurrentToast />
               <SafeToastViewport />
             </PaperProvider>
