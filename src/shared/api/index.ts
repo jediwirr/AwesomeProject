@@ -1,7 +1,14 @@
+import {Post} from '@/entities/post';
+import axios from 'axios';
+
+const API_URL = 'http://localhost:3000/posts';
+
 export async function fetchPosts() {
-  const response = await fetch('https://jsonplaceholder.typicode.com/posts');
-  if (!response.ok) {
-    throw new Error('Network response was not ok');
-  }
-  return response.json();
+  const response = await axios.get(API_URL);
+  return response.data;
+}
+
+export async function addPost(post: Post) {
+  const response = await axios.post(API_URL, post);
+  return response.status;
 }

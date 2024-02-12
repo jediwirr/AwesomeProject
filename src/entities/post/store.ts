@@ -7,6 +7,7 @@ interface PostState {
   drafts: Post[];
   updatePost: (postData: Partial<Post>) => void;
   clearPost: () => void;
+  removeDraft: (postId: string) => void;
 }
 
 export const usePostStore = create<PostState>()(set => ({
@@ -57,4 +58,13 @@ export const usePostStore = create<PostState>()(set => ({
         body: '',
       },
     })),
+  removeDraft: postId =>
+    set(state => {
+      const drafts = state.drafts.filter(draft => draft.id !== postId);
+
+      return {
+        ...state,
+        drafts,
+      };
+    }),
 }));

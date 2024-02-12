@@ -1,0 +1,26 @@
+{
+  "posts": [
+    {
+      "id": "ad321d98-afed-418c-999c-2fca150c4ad9",
+      "title": "title",
+      "body": "Body",
+      "userId": "1"
+    },
+    {
+      "id": "007d66f7-cd8d-4724-b558-da9dd6f41ae2",
+      "title": "Jldldlk",
+      "body": "Fdpf  wk Leif ",
+      "userId": "1"
+    },
+    {
+      "id": "27eac5e2-b252-4a2b-af97-d4691078dc46",
+      "title": "Efef",
+      "body": "Fefefefefefefefefef",
+      "userId": "1"
+    }
+  ],
+  "comments": [],
+  "profile": {
+    "name": "typicode"
+  }
+}

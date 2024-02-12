@@ -1,8 +1,7 @@
 import React, {FC} from 'react';
 import {PostCard} from '@/widgets/post-card';
-import {ListRenderItem} from 'react-native';
+import {FlatList, ListRenderItem} from 'react-native';
 import {Post} from '@/entities/post';
-import {StyledList} from './styles';
 
 interface PostsListProps {
   posts: Post[];
@@ -20,5 +19,5 @@ export const PostsList: FC<PostsListProps> = props => {
     />
   );
 
-  return <StyledList data={posts} renderItem={renderItem} />;
+  return <FlatList data={posts} renderItem={renderItem} />;
 };

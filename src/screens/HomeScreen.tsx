@@ -28,7 +28,7 @@ const HomeScreen = () => {
   }
 
   return (
-    <View>
+    <View style={{flex: 1, backgroundColor: 'white'}}>
       <Button
         title="Create Post"
         onPress={() => navigation.navigate('EditPost')}

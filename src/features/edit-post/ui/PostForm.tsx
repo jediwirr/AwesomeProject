@@ -1,11 +1,37 @@
-import React, {useEffect} from 'react';
+import React, {FC, useEffect} from 'react';
 import {Button, Text} from 'tamagui';
 import {Input} from '@/shared/ui/input';
 import {FormContainer} from './styles';
-import {usePostStore} from '@/entities/post';
+import {Post, usePostStore} from '@/entities/post';
+import {useMutation, useQueryClient} from '@tanstack/react-query';
+import {addPost} from '@/shared/api';
+import {useNavigation} from '@react-navigation/native';
 
-export const PostForm = () => {
-  const {post, updatePost, clearPost} = usePostStore();
+export const PostForm: FC = () => {
+  const {post, updatePost, clearPost, removeDraft} = usePostStore();
+  const queryClient = useQueryClient();
+  const navigation = useNavigation();
+
+  const {mutate, isPending} = useMutation({
+    mutationFn: (postData: Post) => addPost(postData),
+    onError: error => console.log(error),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({queryKey: ['posts']});
+      removeDraft(post.id);
+      navigation.reset({
+        index: 1,
+        routes: [
+          {
+            name: 'Home',
+          },
+          {
+            name: 'PostDetails',
+            params: {postId: post.id},
+          },
+        ],
+      });
+    },
+  });
 
   useEffect(() => {
     return () => {
@@ -21,15 +47,18 @@ export const PostForm = () => {
     updatePost({body});
   };
 
-  const onSubmit = () => {};
+  const onSubmit = () => {
+    mutate(post);
+  };
 
   return (
     <FormContainer>
-      <Text>Edit Post</Text>
       <Input label="Title" value={post.title} onChangeText={onTitleEdit} />
       <Input label="Body" value={post.body} onChangeText={onBodyEdit} />
       <Button backgroundColor="#317BA8" width="100%" onPress={onSubmit}>
-        <Text color="white">Submit</Text>
+        <Text color="white">
+          `${isPending ? 'Just a second...' : 'Submit'}`
+        </Text>
       </Button>
     </FormContainer>
   );
