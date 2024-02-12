@@ -5,11 +5,13 @@ import {FormContainer} from './styles';
 import {usePostStore} from '@/entities/post';
 
 export const PostForm = () => {
-  const {post, drafts, updatePost} = usePostStore();
+  const {post, updatePost, clearPost} = usePostStore();
 
   useEffect(() => {
-    console.log({post, drafts});
-  }, [post, drafts]);
+    console.log(post);
+
+    //return () => {};
+  }, [post]);
 
   const onTitleEdit = (title: string) => {
     updatePost({title});
@@ -19,7 +21,9 @@ export const PostForm = () => {
     updatePost({body});
   };
 
-  const onSubmit = () => {};
+  const onSubmit = () => {
+    clearPost();
+  };
 
   return (
     <FormContainer>

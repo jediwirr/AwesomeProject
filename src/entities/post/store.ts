@@ -1,25 +1,25 @@
 import {create} from 'zustand';
 import {Post} from './model/types';
-import hmacSHA512 from 'crypto-js/hmac-sha512';
-import Base64 from 'crypto-js/enc-base64';
+import UUID from '@/shared/lib/UUID';
 
 interface PostState {
   post: Post;
   drafts: Post[];
   updatePost: (postData: Partial<Post>) => void;
+  clearPost: () => void;
 }
 
 export const usePostStore = create<PostState>()(set => ({
   post: {
-    id: Base64.stringify(hmacSHA512('id', 'post')),
+    id: UUID(),
     title: '',
     body: '',
-    userId: Base64.stringify(hmacSHA512('is', 'user')),
+    userId: UUID(),
   },
   drafts: [],
   updatePost: postData =>
     set(state => {
-      const post: Post = {
+      const post = {
         ...state.post,
         ...postData,
       };
@@ -47,4 +47,14 @@ export const usePostStore = create<PostState>()(set => ({
         drafts,
       };
     }),
+  clearPost: () =>
+    set(state => ({
+      ...state,
+      post: {
+        ...state.post,
+        id: UUID(),
+        title: '',
+        body: '',
+      },
+    })),
 }));

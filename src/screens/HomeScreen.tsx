@@ -33,6 +33,7 @@ const HomeScreen = () => {
         title="Create Post"
         onPress={() => navigation.navigate('EditPost')}
       />
+      <Button title="Drafts" onPress={() => navigation.navigate('Drafts')} />
 
       <PostsList
         posts={posts}
