@@ -8,7 +8,7 @@ import {RouteProp} from '@react-navigation/native';
 const PostDetailsScreen = ({
   route,
 }: {
-  route: RouteProp<{params: {postId: number}}>;
+  route: RouteProp<{params: {postId: string}}>;
 }) => {
   const {postId} = route.params;
   const queryClient = useQueryClient();

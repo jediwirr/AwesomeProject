@@ -1,40 +1,24 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {PostCard} from '@/widgets/post-card';
-import {ListRenderItem, Text, View} from 'react-native';
-import {UseQueryResult, useQuery} from '@tanstack/react-query';
+import {ListRenderItem} from 'react-native';
 import {Post} from '@/entities/post';
 import {StyledList} from './styles';
-import {fetchPosts} from '@/shared/api';
-import {useNavigation} from '@react-navigation/native';
 
-export const PostsList = () => {
-  const {data, status}: UseQueryResult<Post[], Error> = useQuery({
-    queryKey: ['posts'],
-    queryFn: fetchPosts,
-    retry: 4,
-  });
+interface PostsListProps {
+  posts: Post[];
+  onSelectPost: (postId?: string) => void;
+}
 
-  const navigation = useNavigation();
-
-  if (status === 'pending') {
-    return (
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <Text>Fetching posts...</Text>
-      </View>
-    );
-  }
-
-  if (!data) {
-    return null;
-  }
+export const PostsList: FC<PostsListProps> = props => {
+  const {posts, onSelectPost} = props;
 
   const renderItem: ListRenderItem<Post> = ({item}) => (
     <PostCard
-      onPress={() => navigation.navigate('PostDetails', {postId: item.id})}
+      onPress={() => onSelectPost(item.id)}
       title={item.title}
       body={item.body}
     />
   );
 
-  return <StyledList data={data} renderItem={renderItem} />;
+  return <StyledList data={posts} renderItem={renderItem} />;
 };

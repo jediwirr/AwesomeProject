@@ -36,7 +36,7 @@ export default function () {
         <QueryClientProvider client={queryClient}>
           <ToastProvider burntOptions={{from: 'bottom'}}>
             <PaperProvider>
-              {!user.loggedIn ? <AuthScreen /> : <StackNavigator />}
+              {user.loggedIn ? <AuthScreen /> : <StackNavigator />}
               <CurrentToast />
               <SafeToastViewport />
             </PaperProvider>
