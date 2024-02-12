@@ -56,9 +56,7 @@ export const PostForm: FC = () => {
       <Input label="Title" value={post.title} onChangeText={onTitleEdit} />
       <Input label="Body" value={post.body} onChangeText={onBodyEdit} />
       <Button backgroundColor="#317BA8" width="100%" onPress={onSubmit}>
-        <Text color="white">
-          `${isPending ? 'Just a second...' : 'Submit'}`
-        </Text>
+        <Text color="white">{isPending ? 'Just a second...' : 'Submit'}</Text>
       </Button>
     </FormContainer>
   );

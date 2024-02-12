@@ -12,7 +12,7 @@ const PostDetailsScreen = ({
 }) => {
   const {postId} = route.params;
   const queryClient = useQueryClient();
-  const posts: Post[] | undefined = queryClient.getQueryData(['posts']);
+  const posts: Post[] = queryClient.getQueryData(['posts']) ?? [];
   const post = posts?.find(item => item.id === postId);
 
   if (!post) {
