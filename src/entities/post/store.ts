@@ -14,7 +14,7 @@ export const usePostStore = create<PostState>()(set => ({
     id: UUID(),
     title: '',
     body: '',
-    userId: UUID(),
+    userId: '1',
   },
   drafts: [],
   updatePost: postData =>

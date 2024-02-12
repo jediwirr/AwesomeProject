@@ -8,10 +8,10 @@ export const PostForm = () => {
   const {post, updatePost, clearPost} = usePostStore();
 
   useEffect(() => {
-    console.log(post);
-
-    //return () => {};
-  }, [post]);
+    return () => {
+      clearPost();
+    };
+  }, [clearPost]);
 
   const onTitleEdit = (title: string) => {
     updatePost({title});
@@ -21,9 +21,7 @@ export const PostForm = () => {
     updatePost({body});
   };
 
-  const onSubmit = () => {
-    clearPost();
-  };
+  const onSubmit = () => {};
 
   return (
     <FormContainer>
